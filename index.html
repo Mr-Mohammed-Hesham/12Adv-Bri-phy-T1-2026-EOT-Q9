@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ Electric Flux & Gauss's Law - Question 9 | Mr. Mohammed Hesham</title>
+<meta name="description" content="امتحان تفاعلي شامل عن التدفق الكهربائي وقانون غاوس - مسائل 2.48, 2.49, 2.51, 2.52">
+<meta name="author" content="Mr. Mohammed Hesham">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); }
+body.en-mode { font-family: 'Inter', sans-serif; }
+.arabic-math { font-family: 'Amiri', 'Cairo', serif; }
+.correct { background-color: #dcfce7 !important; border-color: #16a34a !important; }
+.incorrect { background-color: #fee2e2 !important; border-color: #dc2626 !important; }
+.timer-warning { color: #dc2626 !important; animation: pulse 1s infinite; }
+@keyframes pulse { 50% { opacity: 0.7; } }
+@media print { .no-print { display: none !important; } }
+.success-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.875rem; }
+.grade-excellent { background: #dcfce7; color: #166534; }
+.grade-good { background: #fef3c7; color: #92400e; }
+.grade-pass { background: #dbeafe; color: #1e40af; }
+.grade-fail { background: #fee2e2; color: #991b1b; }
+.lang-switch { position: fixed; top: 16px; left: 16px; z-index: 100; background: white; padding: 6px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); display: flex; gap: 4px; border: 2px solid #d97706; }
+[dir="ltr"] .lang-switch { left: auto; right: 16px; }
+.lang-btn { padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: all 0.3s; border: none; font-size: 0.875rem; background: transparent; color: #6b7280; }
+.lang-btn.active { background: #d97706; color: white; box-shadow: 0 2px 6px rgba(217,119,6,0.4); }
+.shuffle-badge { display: inline-block; background: linear-gradient(135deg, #d97706, #b45309); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; margin-right: 8px; }
+.math-display { display: inline-block; direction: ltr; font-family: 'Amiri', serif; font-size: 1.2em; padding: 2px 8px; background: #fef3c7; border-radius: 6px; margin: 2px; color: #92400e; font-weight: 600; }
+.save-indicator { position: fixed; bottom: 20px; left: 20px; z-index: 200; background: #10b981; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.save-indicator.show { opacity: 1; }
+.formula-box { background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; padding: 12px; margin: 10px 0; font-family: 'Amiri', serif; direction: ltr; text-align: center; }
+.svg-graph { display: block; margin: 12px auto; background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 8px; }
+.graph-container { text-align: center; margin: 10px 0; }
+.module-badge { display: inline-block; padding: 4px 16px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; margin-bottom: 8px; }
+.module-1 { background: #fef3c7; color: #92400e; }
+.module-2 { background: #dbeafe; color: #1e40af; }
+.module-3 { background: #fce7f3; color: #9f1239; }
+.module-4 { background: #ecfdf5; color: #065f46; }
+.module-5 { background: #ede9fe; color: #5b21b6; }
+.module-6 { background: #fee2e2; color: #991b1b; }
+</style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+
+<div class="lang-switch no-print">
+<button class="lang-btn active" onclick="setLanguage('ar')" id="btn-ar">عربي</button>
+<button class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</button>
+</div>
+
+<div id="saveIndicator" class="save-indicator">💾 <span data-ar="تم الحفظ" data-en="Saved">تم الحفظ</span></div>
+
+<div id="timer-container" class="max-w-5xl mx-auto mb-4 text-center no-print">
+<div class="bg-white p-4 rounded-2xl shadow-lg inline-block border-2 border-amber-100">
+<span class="text-gray-600 ml-2">⏰ الوقت المتبقي:</span>
+<span id="timer" class="text-2xl font-bold text-amber-700 font-mono">90:00</span>
+<span class="shuffle-badge">⚡ Gauss's Law Problems - 30 سؤال</span>
+</div>
+</div>
+
+<div class="max-w-5xl mx-auto mb-6 flex flex-wrap gap-3 justify-center no-print">
+<button onclick="toggleAnswers()" class="bg-amber-700 hover:bg-amber-800 text-white px-5 py-2 rounded-xl font-medium transition shadow">👀 إظهار/إخفاء الإجابات</button>
+<button onclick="window.print()" class="bg-gray-700 hover:bg-gray-900 text-white px-5 py-2 rounded-xl font-medium transition shadow">️ طباعة</button>
+<button onclick="reshuffleExam()" class="bg-gradient-to-r from-amber-700 to-orange-600 hover:from-amber-800 hover:to-orange-700 text-white px-5 py-2 rounded-xl font-medium transition shadow">🔄 أسئلة جديدة</button>
+<button onclick="clearProgress()" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-medium transition shadow">🗑️ مسح التقدم</button>
+</div>
+
+<header class="max-w-5xl mx-auto bg-white p-8 rounded-3xl shadow-2xl mb-8 border-4 border-amber-500">
+<div class="text-center">
+<div class="inline-block bg-amber-700 text-white px-6 py-2 rounded-full text-sm font-bold mb-4">PHYSICS 12 BRIDGE - QUESTION 9</div>
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">⚡ التدفق الكهربائي وقانون غاوس</h1>
+<h2 class="text-xl text-amber-700 font-semibold mb-2">فيزياء 12 متقدم بريدج - مسائل 2.48, 2.49, 2.51, 2.52</h2>
+<p class="text-gray-600 mb-4">Electric Flux, Gauss's Law, and Applications</p>
+<p class="text-sm text-green-600 font-semibold">💾 يتم حفظ تقدمك تلقائياً - 30 سؤالاً في 6 أقسام</p>
+</div>
+<div class="mt-6 flex flex-wrap justify-center gap-4 text-sm text-gray-600">
+<span>📅 التاريخ: <input type="text" id="examDate" class="border-b-2 border-amber-300 bg-transparent w-32 text-center"></span>
+<span>😊 الاسم: <input type="text" id="studentName" class="border-b-2 border-amber-300 bg-transparent w-40 text-center" placeholder="اكتب اسمك"></span>
+<span> الشعبة: <input type="text" id="studentClass" class="border-b-2 border-amber-300 bg-transparent w-32 text-center" placeholder="الشعبة"></span>
+<span>⏰ المدة: 90 دقيقة</span>
+<span>📊 المجموع: 100 درجة</span>
+</div>
+</header>
+
+<div class="max-w-5xl mx-auto mb-6 bg-white p-4 rounded-xl shadow-lg border-2 border-amber-200 no-print">
+<h3 class="font-bold text-lg mb-3 text-amber-800 text-center">📐 القوانين الأساسية</h3>
+<div class="grid md:grid-cols-3 gap-3 text-sm">
+<div class="formula-box"><strong>Φ = E·A·cos(θ)</strong><br>Electric Flux</div>
+<div class="formula-box"><strong>Φ = ∮E·dA = Q/ε₀</strong><br>Gauss's Law</div>
+<div class="formula-box"><strong>ε₀ = 8.85 × 10⁻¹² C²/N·m²</strong></div>
+<div class="formula-box"><strong>e = 1.6 × 10⁻¹⁹ C</strong><br>Elementary charge</div>
+<div class="formula-box"><strong>k = 9 × 10⁹ N·m²/C²</strong></div>
+<div class="formula-box"><strong>Φ_net = ΣΦ_faces</strong><br>Closed surface</div>
+</div>
+</div>
+
+<main class="max-w-5xl mx-auto space-y-8" id="exam-content"></main>
+
+<div class="text-center no-print pb-8 mt-8">
+<button onclick="gradeExam()" class="bg-gradient-to-r from-amber-700 to-orange-600 hover:from-amber-800 hover:to-orange-700 text-white text-lg px-12 py-4 rounded-2xl font-bold shadow-xl transition transform hover:scale-105">🎯 صحح إجاباتي!</button>
+</div>
+
+<div id="results-panel" class="max-w-5xl mx-auto mt-8 bg-white p-8 rounded-3xl shadow-2xl border-4 border-amber-500 hidden no-print">
+<h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">🏆 نتيجتك يا بطل! 🏆</h2>
+<div class="grid md:grid-cols-3 gap-4 mb-6">
+<div class="bg-amber-50 p-4 rounded-xl text-center"><p>😊 الاسم</p><p id="res-name" class="font-bold text-xl text-amber-700">-</p></div>
+<div class="bg-orange-50 p-4 rounded-xl text-center"><p>📅 التاريخ</p><p id="res-date" class="font-bold text-xl text-orange-700">-</p></div>
+<div class="bg-amber-50 p-4 rounded-xl text-center"><p>🌟 المجموع</p><p id="res-total" class="font-bold text-3xl text-amber-700">0 / 100</p></div>
+</div>
+<div class="text-center mb-6">
+<span id="success-badge" class="success-badge grade-excellent">-</span>
+<p id="success-percent" class="text-4xl font-bold text-amber-700 mt-2">0%</p>
+<p class="text-sm text-gray-500">نسبة النجاح</p>
+</div>
+<div class="bg-gray-50 p-6 rounded-xl mb-6">
+<h3 class="font-bold text-lg mb-4 text-gray-800"> أدائك في كل قسم:</h3>
+<div class="space-y-3" id="sections-performance"></div>
+</div>
+<div class="text-center">
+<button id="sendEmailBtn" onclick="sendResultsToEmail()" class="bg-gradient-to-r from-amber-700 to-orange-600 text-white text-lg px-8 py-3 rounded-2xl font-bold shadow-xl transition">📧 أرسل النتيجة للمعلم</button>
+<p id="emailStatus" class="text-sm mt-2 text-center font-medium"></p>
+</div>
+</div>
+
+<footer class="max-w-5xl mx-auto mt-10 mb-8 text-center text-gray-500 text-sm no-print">
+© Gauss's Law Problems - Grade 12 Bridge | Mr. Mohammed Hesham ⚡
+</footer>
+
+<script>
+const PUBLIC_KEY = "Rb3Lq8tXaFmc5YHUH";
+const SERVICE_ID = "service_w15m64i";
+const TEMPLATE_ID = "template_5b0u2tq";
+const TARGET_EMAIL = "mohammedhesham872@gmail.com";
+emailjs.init(PUBLIC_KEY);
+
+const STORAGE_KEY = 'gauss_law_problems_grade12_v1';
+const TOTAL_TIME = 5400;
+const TOTAL_QUESTIONS = 30;
+const TOTAL_SECTIONS = 6;
+const QUESTIONS_PER_SECTION = 5;
+
+let currentSeed = null;
+let answersVisible = false;
+let saveIndicatorTimeout = null;
+let currentLang = 'ar';
+let timeRemaining = TOTAL_TIME;
+let timerInterval;
+let examData;
+let correctAnswersMap = {};
+let rng = null;
+
+function mulberry32(a) {
+    return function() {
+        var t = a += 0x6D2B79F5;
+        t = Math.imul(t ^ t >>> 15, t | 1);
+        t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    }
+}
+
+function showSaveIndicator() {
+    const indicator = document.getElementById('saveIndicator');
+    indicator.classList.add('show');
+    if (saveIndicatorTimeout) clearTimeout(saveIndicatorTimeout);
+    saveIndicatorTimeout = setTimeout(() => indicator.classList.remove('show'), 1500);
+}
+
+function saveState(showIndicator = true) {
+    try {
+        const state = {
+            seed: currentSeed, lang: currentLang,
+            studentName: document.getElementById('studentName').value,
+            studentClass: document.getElementById('studentClass').value,
+            examDate: document.getElementById('examDate').value,
+            answers: getSelectedAnswers(),
+            timeRemaining: timeRemaining,
+            answersVisible: answersVisible, savedAt: Date.now()
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        if (showIndicator) showSaveIndicator();
+    } catch (e) { console.error('Save error:', e); }
+}
+
+function loadState() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : null;
+    } catch (e) { return null; }
+}
+
+function getSelectedAnswers() {
+    const answers = {};
+    for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+        const selected = document.querySelector('input[name="q'+i+'"]:checked');
+        if (selected) answers[i] = selected.value;
+    }
+    return answers;
+}
+
+function restoreAnswers(answers) {
+    if (!answers) return;
+    for (const [idx, val] of Object.entries(answers)) {
+        const radio = document.querySelector('input[name="q'+idx+'"][value="'+val+'"]');
+        if (radio) radio.checked = true;
+    }
+}
+
+function clearProgress() {
+    const msg = currentLang === 'ar' ? '⚠️ هل أنت متأكد من مسح كل التقدم؟' : '⚠️ Clear all progress?';
+    if (confirm(msg)) { localStorage.removeItem(STORAGE_KEY); location.reload(); }
+}
+
+function setupAnswerListeners() {
+    document.getElementById('exam-content').addEventListener('change', (e) => {
+        if (e.target.type === 'radio') saveState();
+    });
+}
+
+function setupInputListeners() {
+    ['studentName', 'studentClass', 'examDate'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', () => saveState(false));
+            el.addEventListener('blur', () => saveState());
+        }
+    });
+}
+
+// ==================== SVG Diagrams ====================
+const svgGraphs = {
+    gauss_surface: `<svg class="svg-graph" width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="250" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#92400e" font-weight="bold"> سطح غاوسي - Gaussian Surface</text>
+        <ellipse cx="200" cy="140" rx="130" ry="80" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="5"/>
+        <text x="200" y="70" text-anchor="middle" font-size="11" fill="#7c3aed" font-weight="bold">Gaussian Surface</text>
+        <circle cx="150" cy="130" r="12" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+        <text x="150" y="135" text-anchor="middle" font-size="10" fill="white" font-weight="bold">-7q</text>
+        <circle cx="200" cy="110" r="12" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+        <text x="200" y="115" text-anchor="middle" font-size="10" fill="white" font-weight="bold">+2q</text>
+        <circle cx="250" cy="140" r="12" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+        <text x="250" y="145" text-anchor="middle" font-size="10" fill="white" font-weight="bold">-q</text>
+        <circle cx="200" cy="160" r="12" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+        <text x="200" y="165" text-anchor="middle" font-size="10" fill="white" font-weight="bold">+3q</text>
+        <text x="200" y="220" text-anchor="middle" font-size="12" fill="#92400e" font-family="'Amiri', serif" font-weight="bold">Q_enclosed = -7q + 2q - q + 3q = -3q</text>
+        <text x="200" y="240" text-anchor="middle" font-size="12" fill="#dc2626" font-weight="bold">Φ = Q/ε₀ = -3q/ε₀</text>
+    </svg>`,
+    
+    cube_flux_table: `<svg class="svg-graph" width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="290" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#1e40af" font-weight="bold">📦 مكعب بتدفقات معطاة - Cube with Given Fluxes</text>
+        <text x="200" y="45" text-anchor="middle" font-size="11" fill="#1e40af">Face area = 20.0 cm × 20.0 cm = 0.04 m²</text>
+        <rect x="30" y="60" width="340" height="30" fill="#2563eb"/>
+        <text x="100" y="80" text-anchor="middle" font-size="11" fill="white" font-weight="bold">الوجه (Face)</text>
+        <text x="250" y="80" text-anchor="middle" font-size="11" fill="white" font-weight="bold">التدفق (N·m²/C)</text>
+        <rect x="30" y="90" width="340" height="25" fill="#bfdbfe"/>
+        <text x="100" y="107" text-anchor="middle" font-size="10" fill="#1e40af">1</text>
+        <text x="250" y="107" text-anchor="middle" font-size="10" fill="#1e40af">-70.0</text>
+        <rect x="30" y="115" width="340" height="25" fill="#dbeafe"/>
+        <text x="100" y="132" text-anchor="middle" font-size="10" fill="#1e40af">2</text>
+        <text x="250" y="132" text-anchor="middle" font-size="10" fill="#1e40af">-300.0</text>
+        <rect x="30" y="140" width="340" height="25" fill="#bfdbfe"/>
+        <text x="100" y="157" text-anchor="middle" font-size="10" fill="#1e40af">3</text>
+        <text x="250" y="157" text-anchor="middle" font-size="10" fill="#1e40af">-300.0</text>
+        <rect x="30" y="165" width="340" height="25" fill="#dbeafe"/>
+        <text x="100" y="182" text-anchor="middle" font-size="10" fill="#1e40af">4</text>
+        <text x="250" y="182" text-anchor="middle" font-size="10" fill="#1e40af">+300.0</text>
+        <rect x="30" y="190" width="340" height="25" fill="#bfdbfe"/>
+        <text x="100" y="207" text-anchor="middle" font-size="10" fill="#1e40af">5</text>
+        <text x="250" y="207" text-anchor="middle" font-size="10" fill="#1e40af">-400.0</text>
+        <rect x="30" y="215" width="340" height="25" fill="#dbeafe"/>
+        <text x="100" y="232" text-anchor="middle" font-size="10" fill="#1e40af">6</text>
+        <text x="250" y="232" text-anchor="middle" font-size="10" fill="#1e40af">-500.0</text>
+        <text x="200" y="260" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="bold">Φ_net = ΣΦ = -1270 N·m²/C</text>
+        <text x="200" y="280" text-anchor="middle" font-size="11" fill="#dc2626">Q = Φ·ε₀ = -1.12 × 10⁻⁸ C</text>
+    </svg>`,
+    
+    cube_in_fields: `<svg class="svg-graph" width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="290" rx="12" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#9f1239" font-weight="bold">📦 مكعب في مجالات مختلفة - Cube in Fields</text>
+        <rect x="140" y="90" width="120" height="120" fill="#fbcfe8" stroke="#ec4899" stroke-width="2"/>
+        <text x="200" y="155" text-anchor="middle" font-size="12" fill="#9f1239" font-weight="bold">F</text>
+        <text x="200" y="170" text-anchor="middle" font-size="10" fill="#9f1239">(unknown)</text>
+        <line x1="80" y1="150" x2="140" y2="150" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow1)"/>
+        <text x="110" y="140" text-anchor="middle" font-size="9" fill="#2563eb" font-weight="bold">15.0 N/C</text>
+        <text x="110" y="175" text-anchor="middle" font-size="9" fill="#2563eb">Face A</text>
+        <line x1="260" y1="150" x2="320" y2="150" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow1)"/>
+        <text x="290" y="140" text-anchor="middle" font-size="9" fill="#2563eb" font-weight="bold">20.0 N/C</text>
+        <text x="290" y="175" text-anchor="middle" font-size="9" fill="#2563eb">Face D</text>
+        <line x1="200" y1="50" x2="200" y2="90" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow1)"/>
+        <text x="220" y="70" font-size="9" fill="#2563eb" font-weight="bold">25.0 N/C</text>
+        <text x="220" y="83" font-size="9" fill="#2563eb">Face B</text>
+        <line x1="200" y1="210" x2="200" y2="250" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow1)"/>
+        <text x="220" y="230" font-size="9" fill="#2563eb" font-weight="bold">20.0 N/C</text>
+        <text x="220" y="243" font-size="9" fill="#2563eb">Face C</text>
+        <line x1="240" y1="110" x2="260" y2="130" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow1)"/>
+        <text x="270" y="115" font-size="9" fill="#2563eb">10.0 N/C</text>
+        <text x="270" y="128" font-size="9" fill="#2563eb">Face E</text>
+        <text x="200" y="280" text-anchor="middle" font-size="11" fill="#9f1239" font-weight="bold">Find: Field magnitude & direction on Face F</text>
+        <defs><marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/></marker></defs>
+    </svg>`,
+    
+    charge_in_cube: `<svg class="svg-graph" width="400" height="280" viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="270" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#065f46" font-weight="bold">⚡ شحنة في مركز مكعب - Charge in Cube</text>
+        <rect x="130" y="80" width="140" height="140" fill="#d1fae5" stroke="#10b981" stroke-width="2"/>
+        <text x="200" y="155" text-anchor="middle" font-size="12" fill="#065f46" font-weight="bold">Cube</text>
+        <circle cx="200" cy="150" r="20" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+        <text x="200" y="155" text-anchor="middle" font-size="11" fill="white" font-weight="bold">+5e</text>
+        <text x="200" y="180" text-anchor="middle" font-size="10" fill="#065f46">at center</text>
+        <line x1="200" y1="130" x2="200" y2="90" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow2)"/>
+        <line x1="220" y1="140" x2="260" y2="100" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow2)"/>
+        <line x1="180" y1="140" x2="140" y2="100" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow2)"/>
+        <line x1="200" y1="170" x2="200" y2="210" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow2)"/>
+        <text x="200" y="240" text-anchor="middle" font-size="11" fill="#065f46">Φ_total = +5e/ε₀</text>
+        <text x="200" y="260" text-anchor="middle" font-size="11" fill="#065f46">Φ_per_face = +5e/(6ε₀)</text>
+        <defs><marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#dc2626"/></marker></defs>
+    </svg>`,
+    
+    flux_formula: `<svg class="svg-graph" width="400" height="240" viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="230" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#5b21b6" font-weight="bold">📐 صيغ التدفق - Flux Formulas</text>
+        <rect x="20" y="45" width="360" height="40" rx="6" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="200" y="70" text-anchor="middle" font-size="13" fill="#5b21b6" font-family="'Amiri', serif" font-weight="bold">Φ = E·A·cos(θ)</text>
+        <rect x="20" y="95" width="360" height="40" rx="6" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="200" y="120" text-anchor="middle" font-size="13" fill="#5b21b6" font-family="'Amiri', serif" font-weight="bold">Φ = ∮E·dA = Q_enclosed/ε₀</text>
+        <rect x="20" y="145" width="360" height="40" rx="6" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="200" y="170" text-anchor="middle" font-size="13" fill="#5b21b6" font-family="'Amiri', serif" font-weight="bold">Q = Φ·ε₀</text>
+        <rect x="20" y="195" width="360" height="30" rx="6" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="200" y="215" text-anchor="middle" font-size="11" fill="#5b21b6">ε₀ = 8.85 × 10⁻¹² C²/N·m²</text>
+    </svg>`,
+    
+    four_charges: `<svg class="svg-graph" width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="250" rx="12" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#991b1b" font-weight="bold">🔢 أربع شحنات - Four Charges</text>
+        <circle cx="100" cy="100" r="20" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+        <text x="100" y="105" text-anchor="middle" font-size="11" fill="white" font-weight="bold">-7q</text>
+        <circle cx="200" cy="80" r="20" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+        <text x="200" y="85" text-anchor="middle" font-size="11" fill="white" font-weight="bold">+2q</text>
+        <circle cx="300" cy="100" r="20" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+        <text x="300" y="105" text-anchor="middle" font-size="11" fill="white" font-weight="bold">-q</text>
+        <circle cx="200" cy="160" r="20" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+        <text x="200" y="165" text-anchor="middle" font-size="11" fill="white" font-weight="bold">+3q</text>
+        <ellipse cx="200" cy="120" rx="150" ry="90" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="5"/>
+        <text x="200" y="40" text-anchor="middle" font-size="10" fill="#7c3aed" font-weight="bold">Gaussian Surface</text>
+        <text x="200" y="215" text-anchor="middle" font-size="12" fill="#991b1b" font-family="'Amiri', serif" font-weight="bold">Q_total = -7q + 2q - q + 3q = -3q</text>
+        <text x="200" y="240" text-anchor="middle" font-size="12" fill="#dc2626" font-weight="bold">Φ = -3q/ε₀</text>
+    </svg>`
+};
+
+// ==================== EXAM DATA - 30 QUESTIONS ====================
+const originalExamData = {
+    sections: [
+        {
+            id: 'sec1',
+            title: { ar: '🔹 القسم 1: مفاهيم التدفق وقانون غاوس (Q1-Q5)', en: '🔹 Section 1: Flux & Gauss\'s Law Concepts (Q1-Q5)' },
+            questions: [
+                {
+                    q: { ar: 'ما صيغة قانون غاوس؟', en: 'What is Gauss\'s Law formula?' },
+                    svg: svgGraphs.flux_formula,
+                    options: [
+                        { ar: '<span class="math-display">Φ = ∮E·dA = Q/ε₀</span>', en: '<span class="math-display">Φ = ∮E·dA = Q/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = E·A</span>', en: '<span class="math-display">Φ = E·A</span>' },
+                        { ar: '<span class="math-display">Φ = kQ/r²</span>', en: '<span class="math-display">Φ = kQ/r²</span>' },
+                        { ar: '<span class="math-display">Φ = Q·ε₀</span>', en: '<span class="math-display">Φ = Q·ε₀</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Φ = ∮E·dA = Q_enclosed/ε₀ (التدفق الكلي = الشحنة المحصورة ÷ ε₀)', en: 'Φ = ∮E·dA = Q_enclosed/ε₀ (total flux = enclosed charge ÷ ε₀)' }
+                },
+                {
+                    q: { ar: 'ما قيمة ε₀ (سماحية الفراغ)؟', en: 'What is value of ε₀ (permittivity of free space)?' },
+                    options: [
+                        { ar: '<span class="math-display">8.85 × 10⁻¹² C²/N·m²</span>', en: '<span class="math-display">8.85 × 10⁻¹² C²/N·m²</span>' },
+                        { ar: '<span class="math-display">9 × 10⁹ N·m²/C²</span>', en: '<span class="math-display">9 × 10⁹ N·m²/C²</span>' },
+                        { ar: '<span class="math-display">1.6 × 10¹⁹ C</span>', en: '<span class="math-display">1.6 × 10⁻¹⁹ C</span>' },
+                        { ar: '<span class="math-display">6.67 × 10⁻¹¹ N·m²/kg²</span>', en: '<span class="math-display">6.67 × 10⁻¹¹ N·m²/kg²</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'ε₀ = 8.85 × 10⁻¹² C²/N·m²', en: 'ε₀ = 8.85 × 10⁻¹² C²/N·m²' }
+                },
+                {
+                    q: { ar: 'التدفق الكهربائي عبر سطح مغلق يعتمد على:', en: 'Electric flux through closed surface depends on:' },
+                    options: [
+                        { ar: 'الشحنة المحصورة داخل السطح فقط', en: 'Only charge enclosed inside surface' },
+                        { ar: 'الشحنات خارج السطح', en: 'Charges outside surface' },
+                        { ar: 'حجم السطح', en: 'Volume of surface' },
+                        { ar: 'شكل السطح', en: 'Shape of surface' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'قانون غاوس: التدفق يعتمد فقط على الشحنة المحصورة داخل السطح المغلق', en: 'Gauss\'s Law: flux depends only on charge enclosed inside closed surface' }
+                },
+                {
+                    q: { ar: 'إذا كانت الشحنة المحصورة داخل سطح غاوسي صفراً، فإن التدفق الكلي:', en: 'If enclosed charge inside Gaussian surface is zero, total flux:' },
+                    options: [
+                        { ar: 'يساوي صفراً', en: 'Equals zero' },
+                        { ar: 'موجب', en: 'Positive' },
+                        { ar: 'سالب', en: 'Negative' },
+                        { ar: 'لا يمكن التحديد', en: 'Cannot determine' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Φ = Q/ε₀ = 0/ε₀ = 0', en: 'Φ = Q/ε₀ = 0/ε₀ = 0' }
+                },
+                {
+                    q: { ar: 'وحدة التدفق الكهربائي:', en: 'Unit of electric flux:' },
+                    options: [
+                        { ar: '<span class="math-display">N·m²/C</span> أو <span class="math-display">V·m</span>', en: '<span class="math-display">N·m²/C</span> or <span class="math-display">V·m</span>' },
+                        { ar: '<span class="math-display">N/C</span>', en: '<span class="math-display">N/C</span>' },
+                        { ar: '<span class="math-display">C/m²</span>', en: '<span class="math-display">C/m²</span>' },
+                        { ar: '<span class="math-display">V/m</span> فقط', en: '<span class="math-display">V/m</span> only' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Φ = E·A → (N/C)·m² = N·m²/C = V·m', en: 'Φ = E·A → (N/C)·m² = N·m²/C = V·m' }
+                }
+            ]
+        },
+        {
+            id: 'sec2',
+            title: { ar: '🔹 القسم 2: مسألة 2.48 - أربع شحنات (Q6-Q10)', en: ' Section 2: Problem 2.48 - Four Charges (Q6-Q10)' },
+            questions: [
+                {
+                    q: { ar: 'أربع شحنات في حيز ثلاثي الأبعاد: -7q, +2q, -q, +3q. محاطة بسطح غاوسي. ما الشحنة الكلية المحصورة؟', en: 'Four charges in 3D space: -7q, +2q, -q, +3q. Enclosed by Gaussian surface. Total enclosed charge?' },
+                    svg: svgGraphs.four_charges,
+                    options: [
+                        { ar: '<span class="math-display">-3q</span>', en: '<span class="math-display">-3q</span>' },
+                        { ar: '<span class="math-display">+3q</span>', en: '<span class="math-display">+3q</span>' },
+                        { ar: '<span class="math-display">-13q</span>', en: '<span class="math-display">-13q</span>' },
+                        { ar: '<span class="math-display">+13q</span>', en: '<span class="math-display">+13q</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Q = -7q + 2q - q + 3q = -3q', en: 'Q = -7q + 2q - q + 3q = -3q' }
+                },
+                {
+                    q: { ar: 'ما التدفق الكهربائي المار عبر سطح غاوسي يحيط بالشحنات الأربع (-7q, +2q, -q, +3q)؟', en: 'What is electric flux through Gaussian surface enclosing four charges (-7q, +2q, -q, +3q)?' },
+                    options: [
+                        { ar: '<span class="math-display">Φ = -3q/ε₀</span>', en: '<span class="math-display">Φ = -3q/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = +3q/ε₀</span>', en: '<span class="math-display">Φ = +3q/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = 0</span>', en: '<span class="math-display">Φ = 0</span>' },
+                        { ar: '<span class="math-display">Φ = -13q/ε₀</span>', en: '<span class="math-display">Φ = -13q/ε₀</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Φ = Q_enclosed/ε₀ = -3q/ε₀', en: 'Φ = Q_enclosed/ε₀ = -3q/ε₀' }
+                },
+                {
+                    q: { ar: 'إشارة التدفق في مسألة 2.48:', en: 'Sign of flux in problem 2.48:' },
+                    options: [
+                        { ar: 'سالبة (لأن الشحنة المحصورة سالبة)', en: 'Negative (because enclosed charge is negative)' },
+                        { ar: 'موجبة', en: 'Positive' },
+                        { ar: 'صفر', en: 'Zero' },
+                        { ar: 'تعتمد على شكل السطح', en: 'Depends on surface shape' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Q = -3q (سالبة) → Φ = -3q/ε₀ (سالب)', en: 'Q = -3q (negative) → Φ = -3q/ε₀ (negative)' }
+                },
+                {
+                    q: { ar: 'إذا كانت q = 1 μC، ما قيمة التدفق عددياً؟', en: 'If q = 1 μC, what is numerical value of flux?' },
+                    options: [
+                        { ar: '<span class="math-display">≈ -3.39 × 10 N·m²/C</span>', en: '<span class="math-display">≈ -3.39 × 10⁵ N·m²/C</span>' },
+                        { ar: '<span class="math-display">≈ +3.39 × 10⁵ N·m²/C</span>', en: '<span class="math-display">≈ +3.39 × 10⁵ N·m²/C</span>' },
+                        { ar: '<span class="math-display">≈ -1.13 × 10⁵ N·m²/C</span>', en: '<span class="math-display">≈ -1.13 × 10⁵ N·m²/C</span>' },
+                        { ar: '<span class="math-display">≈ 0</span>', en: '<span class="math-display">≈ 0</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Φ = -3(1×10⁻⁶)/(8.85×10⁻¹²) ≈ -3.39 × 10⁵ N·m²/C', en: 'Φ = -3(1×10⁻⁶)/(8.85×10⁻¹²) ≈ -3.39 × 10⁵ N·m²/C' }
+                },
+                {
+                    q: { ar: 'إذا أضفنا شحنة +3q أخرى داخل السطح، ما التدفق الجديد؟', en: 'If we add another +3q charge inside surface, what is new flux?' },
+                    options: [
+                        { ar: '<span class="math-display">Φ = 0</span>', en: '<span class="math-display">Φ = 0</span>' },
+                        { ar: '<span class="math-display">Φ = -3q/ε₀</span>', en: '<span class="math-display">Φ = -3q/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = +3q/ε₀</span>', en: '<span class="math-display">Φ = +3q/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = -6q/ε₀</span>', en: '<span class="math-display">Φ = -6q/ε₀</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Q_new = -3q + 3q = 0 → Φ = 0', en: 'Q_new = -3q + 3q = 0 → Φ = 0' }
+                }
+            ]
+        },
+        {
+            id: 'sec3',
+            title: { ar: ' القسم 3: مسألة 2.49 - المكعب والتدفقات (Q11-Q15)', en: '🔹 Section 3: Problem 2.49 - Cube and Fluxes (Q11-Q15)' },
+            questions: [
+                {
+                    q: { ar: 'مكعب مساحة وجهه 20.0 cm². التدفقات: Φ₁=-70, Φ₂=-300, Φ₃=-300, Φ=+300, Φ₅=-400, Φ₆=-500 N·m²/C. ما التدفق الكلي؟', en: 'Cube face area 20.0 cm². Fluxes: Φ₁=-70, Φ₂=-300, Φ₃=-300, Φ₄=+300, Φ₅=-400, Φ₆=-500 N·m²/C. Total flux?' },
+                    svg: svgGraphs.cube_flux_table,
+                    options: [
+                        { ar: '<span class="math-display">-1270 N·m²/C</span>', en: '<span class="math-display">-1270 N·m²/C</span>' },
+                        { ar: '<span class="math-display">+1270 N·m²/C</span>', en: '<span class="math-display">+1270 N·m²/C</span>' },
+                        { ar: '<span class="math-display">-970 N·m²/C</span>', en: '<span class="math-display">-970 N·m²/C</span>' },
+                        { ar: '<span class="math-display">0</span>', en: '<span class="math-display">0</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Φ_net = -70 - 300 - 300 + 300 - 400 - 500 = -1270 N·m²/C', en: 'Φ_net = -70 - 300 - 300 + 300 - 400 - 500 = -1270 N·m²/C' }
+                },
+                {
+                    q: { ar: 'ما الشحنة الصافية داخل المكعب في مسألة 2.49؟', en: 'What is net charge inside cube in problem 2.49?' },
+                    options: [
+                        { ar: '<span class="math-display">≈ -1.12 × 10⁻⁸ C</span>', en: '<span class="math-display">≈ -1.12 × 10⁻⁸ C</span>' },
+                        { ar: '<span class="math-display">≈ +1.12 × 10⁻⁸ C</span>', en: '<span class="math-display">≈ +1.12 × 10⁻⁸ C</span>' },
+                        { ar: '<span class="math-display">≈ -1.12 × 10⁻¹⁰ C</span>', en: '<span class="math-display">≈ -1.12 × 10⁻¹⁰ C</span>' },
+                        { ar: '<span class="math-display">≈ 0</span>', en: '<span class="math-display">≈ 0</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Q = Φ·ε₀ = (-1270)(8.85×10⁻¹²) ≈ -1.12 × 10⁻⁸ C', en: 'Q = Φ·ε₀ = (-1270)(8.85×10⁻¹²) ≈ -1.12 × 10⁻⁸ C' }
+                },
+                {
+                    q: { ar: 'إشارة الشحنة داخل المكعب في مسألة 2.49:', en: 'Sign of charge inside cube in problem 2.49:' },
+                    options: [
+                        { ar: 'سالبة (لأن التدفق الكلي سالب)', en: 'Negative (because total flux is negative)' },
+                        { ar: 'موجبة', en: 'Positive' },
+                        { ar: 'متعادلة', en: 'Neutral' },
+                        { ar: 'لا يمكن التحديد', en: 'Cannot determine' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Φ_net سالب → Q سالب (شحنة صافية سالبة داخل المكعب)', en: 'Φ_net negative → Q negative (net negative charge inside cube)' }
+                },
+                {
+                    q: { ar: 'إذا كان التدفق عبر أحد الأوجه -300 N·m²/C، ماذا يعني ذلك؟', en: 'If flux through one face is -300 N·m²/C, what does it mean?' },
+                    options: [
+                        { ar: 'المجال الكهربائي يدخل هذا الوجه', en: 'Electric field enters this face' },
+                        { ar: 'المجال الكهربائي يخرج من هذا الوجه', en: 'Electric field exits this face' },
+                        { ar: 'المجال موازٍ للوجه', en: 'Field is parallel to face' },
+                        { ar: 'لا مجال على هذا الوجه', en: 'No field on this face' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'التدفق السالب يعني أن المجال يدخل الوجه (الزاوية بين E والمتجه العمودي > 90°)', en: 'Negative flux means field enters face (angle between E and normal > 90°)' }
+                },
+                {
+                    q: { ar: 'إذا كان التدفق عبر وجه +300 N·m²/C، ماذا يعني؟', en: 'If flux through face is +300 N·m²/C, what does it mean?' },
+                    options: [
+                        { ar: 'المجال الكهربائي يخرج من هذا الوجه', en: 'Electric field exits this face' },
+                        { ar: 'المجال يدخل الوجه', en: 'Field enters face' },
+                        { ar: 'المجال صفر', en: 'Field is zero' },
+                        { ar: 'المجال موازٍ للوجه', en: 'Field parallel to face' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'التدفق الموجب يعني أن المجال يخرج من الوجه', en: 'Positive flux means field exits the face' }
+                }
+            ]
+        },
+        {
+            id: 'sec4',
+            title: { ar: ' القسم 4: مسألة 2.51 - المكعب في مجالات مختلفة (Q16-Q20)', en: '🔹 Section 4: Problem 2.51 - Cube in Different Fields (Q16-Q20)' },
+            questions: [
+                {
+                    q: { ar: 'في مسألة 2.51: المكعب في مجالات A=15, B=25, C=20, D=20, E=10 N/C. ما التدفق عبر الوجه A (المجال 15 N/C يدخل)؟', en: 'Problem 2.51: Cube in fields A=15, B=25, C=20, D=20, E=10 N/C. Flux through face A (field 15 N/C enters)?' },
+                    svg: svgGraphs.cube_in_fields,
+                    options: [
+                        { ar: '<span class="math-display">Φ_A = -15A</span> (سالب)', en: '<span class="math-display">Φ_A = -15A</span> (negative)' },
+                        { ar: '<span class="math-display">Φ_A = +15A</span>', en: '<span class="math-display">Φ_A = +15A</span>' },
+                        { ar: '<span class="math-display">Φ_A = 0</span>', en: '<span class="math-display">Φ_A = 0</span>' },
+                        { ar: '<span class="math-display">Φ_A = 15/A</span>', en: '<span class="math-display">Φ_A = 15/A</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'المجال يدخل الوجه A: Φ = E·A·cos(180°) = -15A', en: 'Field enters face A: Φ = E·A·cos(180°) = -15A' }
+                },
+                {
+                    q: { ar: 'ما التدفق عبر الوجه D (المجال 20 N/C يخرج)؟', en: 'What is flux through face D (field 20 N/C exits)?' },
+                    options: [
+                        { ar: '<span class="math-display">Φ_D = +20A</span>', en: '<span class="math-display">Φ_D = +20A</span>' },
+                        { ar: '<span class="math-display">Φ_D = -20A</span>', en: '<span class="math-display">Φ_D = -20A</span>' },
+                        { ar: '<span class="math-display">Φ_D = 0</span>', en: '<span class="math-display">Φ_D = 0</span>' },
+                        { ar: '<span class="math-display">Φ_D = 20/A</span>', en: '<span class="math-display">Φ_D = 20/A</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'المجال يخرج من الوجه D: Φ = +20A', en: 'Field exits face D: Φ = +20A' }
+                },
+                {
+                    q: { ar: 'ما التدفق عبر الوجه B (المجال 25 N/C للأعلى)؟', en: 'What is flux through face B (field 25 N/C upward)?' },
+                    options: [
+                        { ar: '<span class="math-display">Φ_B = +25A</span>', en: '<span class="math-display">Φ_B = +25A</span>' },
+                        { ar: '<span class="math-display">Φ_B = -25A</span>', en: '<span class="math-display">Φ_B = -25A</span>' },
+                        { ar: '<span class="math-display">Φ_B = 0</span>', en: '<span class="math-display">Φ_B = 0</span>' },
+                        { ar: '<span class="math-display">Φ_B = 25/A</span>', en: '<span class="math-display">Φ_B = 25/A</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'المجال يخرج من الوجه B (الأعلى): Φ = +25A', en: 'Field exits face B (top): Φ = +25A' }
+                },
+                {
+                    q: { ar: 'ما التدفق عبر الوجه C (المجال 20 N/C للأسفل)؟', en: 'What is flux through face C (field 20 N/C downward)?' },
+                    options: [
+                        { ar: '<span class="math-display">Φ_C = -20A</span>', en: '<span class="math-display">Φ_C = -20A</span>' },
+                        { ar: '<span class="math-display">Φ_C = +20A</span>', en: '<span class="math-display">Φ_C = +20A</span>' },
+                        { ar: '<span class="math-display">Φ_C = 0</span>', en: '<span class="math-display">Φ_C = 0</span>' },
+                        { ar: '<span class="math-display">Φ_C = 20/A</span>', en: '<span class="math-display">Φ_C = 20/A</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'المجال يدخل الوجه C (الأسفل، المتجه العمودي الخارجي للأسفل): Φ = -20A', en: 'Field enters face C: Φ = -20A' }
+                },
+                {
+                    q: { ar: 'إذا كان المكعب لا يحتوي شحنة، ما التدفق عبر الوجه F المجهول؟', en: 'If cube contains no charge, what is flux through unknown face F?' },
+                    options: [
+                        { ar: '<span class="math-display">Φ_F = -(Φ_A+Φ_B+Φ_C+Φ_D+Φ_E)</span>', en: '<span class="math-display">Φ_F = -(Φ_A+Φ_B+Φ_C+Φ_D+Φ_E)</span>' },
+                        { ar: '<span class="math-display">Φ_F = 0</span>', en: '<span class="math-display">Φ_F = 0</span>' },
+                        { ar: '<span class="math-display">Φ_F = Φ_A</span>', en: '<span class="math-display">Φ_F = Φ_A</span>' },
+                        { ar: 'لا يمكن التحديد', en: 'Cannot determine' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Φ_net = 0 (لا شحنة داخل) → Φ_F = -(مجموع التدفقات الأخرى)', en: 'Φ_net = 0 (no charge inside) → Φ_F = -(sum of other fluxes)' }
+                }
+            ]
+        },
+        {
+            id: 'sec5',
+            title: { ar: ' القسم 5: مسألة 2.52 - شحنة في مكعب (Q21-Q25)', en: '🔹 Section 5: Problem 2.52 - Charge in Cube (Q21-Q25)' },
+            questions: [
+                {
+                    q: { ar: 'شحنة +5e في مركز مكعب. ما التدفق الكلي عبر المكعب؟', en: 'Charge +5e at center of cube. Total flux through cube?' },
+                    svg: svgGraphs.charge_in_cube,
+                    options: [
+                        { ar: '<span class="math-display">Φ = +5e/ε₀</span>', en: '<span class="math-display">Φ = +5e/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = 0</span>', en: '<span class="math-display">Φ = 0</span>' },
+                        { ar: '<span class="math-display">Φ = +5e·ε₀</span>', en: '<span class="math-display">Φ = +5e·ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = -5e/ε₀</span>', en: '<span class="math-display">Φ = -5e/ε₀</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Φ = Q_enclosed/ε₀ = +5e/ε₀', en: 'Φ = Q_enclosed/ε₀ = +5e/ε₀' }
+                },
+                {
+                    q: { ar: 'نفس الشحنة +5e في مركز المكعب. ما التدفق عبر وجه واحد؟', en: 'Same charge +5e at center of cube. Flux through one face?' },
+                    options: [
+                        { ar: '<span class="math-display">Φ_face = +5e/(6ε₀)</span>', en: '<span class="math-display">Φ_face = +5e/(6ε₀)</span>' },
+                        { ar: '<span class="math-display">Φ_face = +5e/ε₀</span>', en: '<span class="math-display">Φ_face = +5e/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ_face = +5e/(4ε₀)</span>', en: '<span class="math-display">Φ_face = +5e/(4ε₀)</span>' },
+                        { ar: '<span class="math-display">Φ_face = 0</span>', en: '<span class="math-display">Φ_face = 0</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'بالتماثل: Φ_face = Φ_total/6 = +5e/(6ε₀)', en: 'By symmetry: Φ_face = Φ_total/6 = +5e/(6ε₀)' }
+                },
+                {
+                    q: { ar: 'إذا تحركت الشحنة +5e من المركز إلى ركن المكعب، ما التدفق الكلي عبر المكعب؟', en: 'If charge +5e moves from center to corner of cube, total flux through cube?' },
+                    options: [
+                        { ar: 'يبقى <span class="math-display">+5e/ε₀</span> (لا يتغير)', en: 'Remains <span class="math-display">+5e/ε₀</span> (unchanged)' },
+                        { ar: 'يصبح صفراً', en: 'Becomes zero' },
+                        { ar: 'يتضاعف', en: 'Doubles' },
+                        { ar: 'يصبح سالباً', en: 'Becomes negative' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'التدفق الكلي لا يعتمد على موقع الشحنة داخل السطح، فقط على مقدارها: Φ = +5e/ε₀', en: 'Total flux doesn\'t depend on charge position inside surface, only on magnitude: Φ = +5e/ε₀' }
+                },
+                {
+                    q: { ar: 'إذا كانت الشحنة +5e في ركن المكعب، ما التدفق عبر المكعب الأصلي؟', en: 'If charge +5e is at corner of cube, flux through original cube?' },
+                    options: [
+                        { ar: '<span class="math-display">Φ = +5e/(8ε₀)</span> (المكعب يحتوي 1/8 الشحنة)', en: '<span class="math-display">Φ = +5e/(8ε₀)</span> (cube contains 1/8 of charge)' },
+                        { ar: '<span class="math-display">Φ = +5e/ε₀</span>', en: '<span class="math-display">Φ = +5e/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = 0</span>', en: '<span class="math-display">Φ = 0</span>' },
+                        { ar: '<span class="math-display">Φ = +5e/(6ε₀)</span>', en: '<span class="math-display">Φ = +5e/(6ε₀)</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'الشحنة في الركن مشتركة بين 8 مكعبات → المكعب الأصلي يحتوي 1/8 من الشحنة → Φ = +5e/(8ε₀)', en: 'Charge at corner shared by 8 cubes → original cube contains 1/8 of charge → Φ = +5e/(8ε₀)' }
+                },
+                {
+                    q: { ar: 'إذا وضعت شحنة -3e في مركز المكعب بدلاً من +5e، ما التدفق الكلي؟', en: 'If charge -3e placed at center of cube instead of +5e, total flux?' },
+                    options: [
+                        { ar: '<span class="math-display">Φ = -3e/ε₀</span>', en: '<span class="math-display">Φ = -3e/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = +3e/ε₀</span>', en: '<span class="math-display">Φ = +3e/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = 0</span>', en: '<span class="math-display">Φ = 0</span>' },
+                        { ar: '<span class="math-display">Φ = -3e·ε₀</span>', en: '<span class="math-display">Φ = -3e·ε₀</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Φ = Q_enclosed/ε₀ = -3e/ε₀ (سالب لأن الشحنة سالبة)', en: 'Φ = Q_enclosed/ε₀ = -3e/ε₀ (negative because charge is negative)' }
+                }
+            ]
+        },
+        {
+            id: 'sec6',
+            title: { ar: '🔹 القسم 6: تطبيقات ومسائل مركبة (Q26-Q30)', en: '🔹 Section 6: Applications & Mixed Problems (Q26-Q30)' },
+            questions: [
+                {
+                    q: { ar: 'سطح كروي نصف قطره r يحتوي شحنة Q في مركزه. ما التدفق عبر السطح؟', en: 'Spherical surface radius r contains charge Q at center. Flux through surface?' },
+                    options: [
+                        { ar: '<span class="math-display">Φ = Q/ε₀</span>', en: '<span class="math-display">Φ = Q/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = Q/(4πε₀r²)</span>', en: '<span class="math-display">Φ = Q/(4πε₀r²)</span>' },
+                        { ar: '<span class="math-display">Φ = 4πr²·Q/ε₀</span>', en: '<span class="math-display">Φ = 4πr²·Q/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = 0</span>', en: '<span class="math-display">Φ = 0</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Φ = Q_enclosed/ε₀ = Q/ε₀ (لا يعتمد على r)', en: 'Φ = Q_enclosed/ε₀ = Q/ε₀ (independent of r)' }
+                },
+                {
+                    q: { ar: 'إذا تضاعف نصف قطر السطح الكروي، ماذا يحدث للتدفق؟', en: 'If radius of spherical surface doubles, what happens to flux?' },
+                    options: [
+                        { ar: 'يبقى ثابتاً (Φ = Q/ε₀)', en: 'Stays constant (Φ = Q/ε₀)' },
+                        { ar: 'يتضاعف', en: 'Doubles' },
+                        { ar: 'يقل إلى الربع', en: 'Decreases to quarter' },
+                        { ar: 'يقل إلى النصف', en: 'Decreases to half' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'التدفق لا يعتمد على حجم أو شكل السطح، فقط على الشحنة المحصورة', en: 'Flux doesn\'t depend on size or shape of surface, only on enclosed charge' }
+                },
+                {
+                    q: { ar: 'شحنتان +Q و -Q داخل سطح مغلق. ما التدفق الكلي؟', en: 'Two charges +Q and -Q inside closed surface. Total flux?' },
+                    options: [
+                        { ar: '<span class="math-display">Φ = 0</span>', en: '<span class="math-display">Φ = 0</span>' },
+                        { ar: '<span class="math-display">Φ = +Q/ε₀</span>', en: '<span class="math-display">Φ = +Q/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = -Q/ε₀</span>', en: '<span class="math-display">Φ = -Q/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ = 2Q/ε₀</span>', en: '<span class="math-display">Φ = 2Q/ε₀</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Q_enclosed = +Q + (-Q) = 0 → Φ = 0/ε₀ = 0', en: 'Q_enclosed = +Q + (-Q) = 0 → Φ = 0/ε₀ = 0' }
+                },
+                {
+                    q: { ar: 'شحنة +Q داخل سطح مكعب. ما التدفق عبر وجه واحد؟', en: 'Charge +Q inside cubic surface. Flux through one face?' },
+                    options: [
+                        { ar: '<span class="math-display">Φ_face = Q/(6ε₀)</span>', en: '<span class="math-display">Φ_face = Q/(6ε₀)</span>' },
+                        { ar: '<span class="math-display">Φ_face = Q/ε₀</span>', en: '<span class="math-display">Φ_face = Q/ε₀</span>' },
+                        { ar: '<span class="math-display">Φ_face = Q/(4ε₀)</span>', en: '<span class="math-display">Φ_face = Q/(4ε₀)</span>' },
+                        { ar: '<span class="math-display">Φ_face = 0</span>', en: '<span class="math-display">Φ_face = 0</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'بالتماثل: Φ_face = Φ_total/6 = Q/(6ε₀)', en: 'By symmetry: Φ_face = Φ_total/6 = Q/(6ε₀)' }
+                },
+                {
+                    q: { ar: 'ما الفرق الأساسي بين التدفق عبر سطح مفتوح وسطح مغلق؟', en: 'What is fundamental difference between flux through open and closed surface?' },
+                    options: [
+                        { ar: 'السطح المغلق له متجه عمودي خارجي محدد، والمفتوح لا', en: 'Closed surface has defined outward normal, open does not' },
+                        { ar: 'لا فرق', en: 'No difference' },
+                        { ar: 'السطح المفتوح دائماً تدفقه صفر', en: 'Open surface always has zero flux' },
+                        { ar: 'السطح المغلق دائماً تدفقه صفر', en: 'Closed surface always has zero flux' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'السطح المغلق (مثل المكعب، الكرة) له متجه عمودي خارجي محدد، ويمكن تطبيق قانون غاوس عليه', en: 'Closed surface (like cube, sphere) has defined outward normal, Gauss\'s Law applies' }
+                }
+            ]
+        }
+    ]
+};
+
+function shuffleArray(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function prepareShuffledExam() {
+    rng = mulberry32(currentSeed);
+    examData = JSON.parse(JSON.stringify(originalExamData));
+    correctAnswersMap = {};
+    let globalIdx = 0;
+    examData.sections.forEach((section) => {
+        section.questions = shuffleArray(section.questions);
+        section.questions.forEach((q) => {
+            const optionsWithCorrect = q.options.map((opt, idx) => ({ option: opt, isCorrect: idx === q.correct }));
+            const shuffledOptions = shuffleArray(optionsWithCorrect);
+            q.options = shuffledOptions.map(o => o.option);
+            q.correct = shuffledOptions.findIndex(o => o.isCorrect);
+            correctAnswersMap[globalIdx] = String.fromCharCode(97 + q.correct);
+            globalIdx++;
+        });
+    });
+}
+
+function reshuffleExam() {
+    const msg = currentLang === 'ar' ? ' سيتم إنشاء أسئلة جديدة ومسح إجاباتك. هل أنت متأكد؟' : '🔄 New questions will be generated. Are you sure?';
+    if (confirm(msg)) {
+        currentSeed = Date.now(); timeRemaining = TOTAL_TIME; answersVisible = false;
+        prepareShuffledExam(); renderExam(); saveState();
+        alert(currentLang === 'ar' ? '🎲 تم تغيير الأسئلة! حظاً موفقاً! 🍀' : '🎲 Questions changed! Good luck! 🍀');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+function setLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.body.classList.toggle('en-mode', lang === 'en');
+    renderExam(); saveState(false);
+}
+
+function renderExam() {
+    const container = document.getElementById('exam-content');
+    const labels = { ar: { option: ['أ', 'ب', 'ج', 'د'], answer: '✅ الإجابة:' }, en: { option: ['A', 'B', 'C', 'D'], answer: '✅ Answer:' } };
+    const lbl = labels[currentLang];
+    let html = '';
+    let globalIdx = 0;
+    
+    examData.sections.forEach((section, secIdx) => {
+        const badgeClass = ['module-1', 'module-2', 'module-3', 'module-4', 'module-5', 'module-6'][secIdx];
+        html += '<section class="bg-white p-6 rounded-2xl shadow-lg border-2 border-amber-100">';
+        html += '<div class="text-center mb-4"><span class="module-badge ' + badgeClass + '">' + section.title[currentLang] + '</span></div>';
+        html += '<ol class="space-y-4 text-sm">';
+        
+        section.questions.forEach((q) => {
+            html += '<li class="border-r-4 border-amber-400 pr-4 py-2" id="q-' + globalIdx + '">';
+            html += '<strong class="text-amber-700">' + (globalIdx + 1) + '.</strong> <span class="arabic-math">' + q.q[currentLang] + '</span><br>';
+            if (q.svg) html += '<div class="graph-container">' + q.svg + '</div>';
+            
+            q.options.forEach((opt, oIdx) => {
+                html += '<label class="cursor-pointer block mt-2 mr-4 hover:bg-amber-50 rounded-lg p-2 transition">';
+                html += '<input type="radio" name="q' + globalIdx + '" value="' + String.fromCharCode(97 + oIdx) + '" class="mr-2 ml-2">';
+                html += '<span class="arabic-math">' + lbl.option[oIdx] + ') ' + opt[currentLang] + '</span>';
+                html += '</label>';
+            });
+            
+            html += '<div class="answer-box text-green-700 mt-3 font-medium ' + (answersVisible ? '' : 'hidden') + ' bg-green-50 rounded-lg p-3 border border-green-200">';
+            html += lbl.answer + ' ' + lbl.option[q.correct] + ') <span class="arabic-math">' + q.options[q.correct][currentLang] + '</span><br>';
+            html += '<span class="text-sm text-green-700 mt-2 block arabic-math">' + q.answer[currentLang] + '</span>';
+            html += '</div></li>';
+            globalIdx++;
+        });
+        
+        html += '</ol></section>';
+    });
+    
+    container.innerHTML = html;
+}
+
+function startTimer() {
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateTimerDisplay();
+        if (timeRemaining % 60 === 0) saveState(false);
+        if (timeRemaining <= 600) document.getElementById('timer').classList.add('timer-warning');
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            alert("⏰ انتهى الوقت!");
+            gradeExam();
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById('timer').textContent = m.toString().padStart(2,'0') + ':' + s.toString().padStart(2,'0');
+}
+
+function toggleAnswers() {
+    answersVisible = !answersVisible;
+    document.querySelectorAll('.answer-box').forEach(el => el.classList.toggle('hidden', !answersVisible));
+    saveState(false);
+}
+
+function gradeExam() {
+    let correctCount = 0;
+    const sectionScores = new Array(TOTAL_SECTIONS).fill(0);
+    
+    for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+        const sel = document.querySelector('input[name="q'+i+'"]:checked');
+        const li = document.getElementById('q-' + i);
+        if (li) {
+            const isCorrect = sel && sel.value === correctAnswersMap[i];
+            if (isCorrect) {
+                correctCount++;
+                li.classList.add('correct');
+                li.classList.remove('incorrect');
+                sectionScores[Math.floor(i / QUESTIONS_PER_SECTION)]++;
+            } else {
+                li.classList.add('incorrect');
+                li.classList.remove('correct');
+            }
+        }
+    }
+    
+    const score = Math.round((correctCount / TOTAL_QUESTIONS) * 100);
+    document.getElementById('res-total').textContent = score + ' / 100';
+    document.getElementById('res-name').textContent = document.getElementById('studentName').value || 'بطل';
+    document.getElementById('res-date').textContent = new Date().toLocaleDateString('ar-AE');
+    
+    const pc = document.getElementById('sections-performance');
+    pc.innerHTML = '';
+    examData.sections.forEach((s, idx) => {
+        pc.innerHTML += '<div class="flex justify-between items-center p-3 bg-white rounded-lg"><span class="text-gray-700">' + s.title[currentLang] + '</span><span class="font-bold text-amber-700">' + sectionScores[idx] + '/' + QUESTIONS_PER_SECTION + '</span></div>';
+    });
+    
+    const badge = document.getElementById('success-badge');
+    document.getElementById('success-percent').textContent = score + '%';
+    
+    if (currentLang === 'ar') {
+        if (score >= 90) { badge.textContent = '🌟 ممتاز جداً!'; badge.className = 'success-badge grade-excellent'; }
+        else if (score >= 75) { badge.textContent = '👏 ممتاز!'; badge.className = 'success-badge grade-good'; }
+        else if (score >= 50) { badge.textContent = ' جيد'; badge.className = 'success-badge grade-pass'; }
+        else { badge.textContent = '💪 حاول مرة أخرى'; badge.className = 'success-badge grade-fail'; }
+    } else {
+        if (score >= 90) { badge.textContent = ' Outstanding!'; badge.className = 'success-badge grade-excellent'; }
+        else if (score >= 75) { badge.textContent = '👏 Excellent!'; badge.className = 'success-badge grade-good'; }
+        else if (score >= 50) { badge.textContent = '👍 Good'; badge.className = 'success-badge grade-pass'; }
+        else { badge.textContent = '💪 Try Again'; badge.className = 'success-badge grade-fail'; }
+    }
+    
+    document.getElementById('results-panel').classList.remove('hidden');
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+    if (timerInterval) clearInterval(timerInterval);
+}
+
+function sendResultsToEmail() {
+    const btn = document.getElementById('sendEmailBtn');
+    const status = document.getElementById('emailStatus');
+    btn.disabled = true;
+    btn.textContent = '⏳ جاري الإرسال...';
+    
+    const name = document.getElementById('studentName').value || 'غير محدد';
+    const studentClass = document.getElementById('studentClass').value || 'غير محدد';
+    const date = document.getElementById('examDate').value || new Date().toLocaleDateString();
+    const score = document.getElementById('res-total').textContent;
+    const successRate = document.getElementById('success-percent').textContent;
+    const badge = document.getElementById('success-badge').textContent;
+    
+    let questionsHTML = '<table style="width:100%; border-collapse: collapse; font-family: Arial; font-size: 12px; direction: rtl;">';
+    questionsHTML += '<thead><tr style="background:#d97706; color:white;"><th style="padding:8px; border:1px solid #ddd;">#</th><th style="padding:8px; border:1px solid #ddd;">السؤال</th><th style="padding:8px; border:1px solid #ddd;">إجابة الطالب</th><th style="padding:8px; border:1px solid #ddd;">الصحيحة</th><th style="padding:8px; border:1px solid #ddd;">النتيجة</th></tr></thead><tbody>';
+    
+    let globalIdx = 0;
+    examData.sections.forEach((section) => {
+        questionsHTML += '<tr style="background:#fef3c7;"><td colspan="5" style="padding:8px; font-weight:bold; border:1px solid #ddd;">' + section.title.ar + '</td></tr>';
+        section.questions.forEach((q) => {
+            const sel = document.querySelector('input[name="q'+globalIdx+'"]:checked');
+            const sv = sel ? sel.value : null;
+            const cv = correctAnswersMap[globalIdx];
+            const ic = sv === cv;
+            let sat = '❌ لم يجب';
+            let sac = '#dc2626';
+            if (sv) {
+                const si = sv.charCodeAt(0) - 97;
+                sat = q.options[si].ar;
+                sac = ic ? '#16a34a' : '#dc2626';
+            }
+            const cat = q.options[q.correct].ar;
+            const rb = ic ? '#f0fdf4' : '#fef2f2';
+            questionsHTML += '<tr style="background:' + rb + ';"><td style="padding:8px; border:1px solid #ddd; text-align:center;">' + (globalIdx+1) + '</td><td style="padding:8px; border:1px solid #ddd;">' + q.q.ar + '</td><td style="padding:8px; border:1px solid #ddd; color:' + sac + ';">' + sat + '</td><td style="padding:8px; border:1px solid #ddd; color:#16a34a;">' + cat + '</td><td style="padding:8px; border:1px solid #ddd; text-align:center;">' + (ic?'✅':'❌') + '</td></tr>';
+            globalIdx++;
+        });
+    });
+    questionsHTML += '</tbody></table>';
+    
+    const templateParams = {
+        to_email: TARGET_EMAIL,
+        student_name: name,
+        student_class: studentClass,
+        exam_date: date,
+        total_score: score,
+        success_rate: successRate,
+        grade: badge,
+        answers_table: questionsHTML
+    };
+    
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
+        .then(() => {
+            status.textContent = '✅ تم الإرسال بنجاح!';
+            status.style.color = '#16a34a';
+            btn.textContent = '✓ تم';
+            alert('تم إرسال النتيجة للمعلم بنجاح!');
+        })
+        .catch((error) => {
+            status.textContent = '❌ فشل الإرسال';
+            status.style.color = '#dc2626';
+            btn.disabled = false;
+            btn.textContent = '📧 حاول مرة أخرى';
+            alert('فشل الإرسال: ' + error.text);
+        });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const saved = loadState();
+    if (saved && saved.seed) {
+        currentSeed = saved.seed;
+        currentLang = saved.lang || 'ar';
+        timeRemaining = saved.timeRemaining !== undefined ? saved.timeRemaining : TOTAL_TIME;
+        answersVisible = saved.answersVisible || false;
+        document.getElementById('btn-ar').classList.toggle('active', currentLang === 'ar');
+        document.getElementById('btn-en').classList.toggle('active', currentLang === 'en');
+        document.body.classList.toggle('en-mode', currentLang === 'en');
+    } else {
+        currentSeed = Date.now();
+    }
+    prepareShuffledExam();
+    renderExam();
+    if (saved) {
+        if (saved.studentName) document.getElementById('studentName').value = saved.studentName;
+        if (saved.studentClass) document.getElementById('studentClass').value = saved.studentClass;
+        if (saved.examDate) document.getElementById('examDate').value = saved.examDate;
+        if (saved.answers) restoreAnswers(saved.answers);
+    }
+    setupAnswerListeners();
+    setupInputListeners();
+    startTimer();
+});
+window.addEventListener('beforeunload', () => saveState(false));
+</script>
+</body>
+</html>
